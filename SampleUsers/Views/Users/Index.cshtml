@@ -5,7 +5,7 @@
 
 <h2>Users</h2>
 <div class="container">
-    <h2>Add new user</h2>
+    <h2>Yeni Kullanıcı Ekle</h2>
     <!-- Trigger the modal with a button -->
     <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">Kayıt ol</button>
     <!-- Modal -->
@@ -20,13 +20,13 @@
                 <div class="modal-body">
                     <form action="/Users/AddNewUser" method="post">
                         <p>KULLANICI KAYIT</p>
-                        İsim: <input type="text" name="name" id="textbox1" />
+                        İsim: <input type="text" name="name" id="textbox1" required/>
                         <br />
                         <br />
-                        Soyisim: <input type="text" name="surname" id="textbox2" />
+                        Soyisim: <input type="text" name="surname" id="textbox2" required/>
                         <br />
                         <br />
-                        Sözleşmeyi okudum ve kabul ediyorum. <input type="checkbox" name="isChecked" id="checkbox1" />
+                        Sözleşmeyi okudum ve kabul ediyorum. <input type="checkbox" name="isChecked" id="checkbox1" required/>
                         <br />
                         <br />
                         <input type="submit" id="button1" value="Kayıt ol" />
@@ -46,12 +46,13 @@
 <br />
 <div>
     <div>
-        <table class="table table-bordered">
+        <table class="table table-bordered" id="tableUser" >
             <tr>
                 <th>Id</th>
                 <th>İsim</th>
                 <th>Soyisim</th>
                 <th>Sözleşme kabul edildi mi?</th>
+                <th>Silme</th>
             </tr>
 
             @foreach (var user in Model)
@@ -69,17 +70,23 @@
                     <td>
                         @user.IsChecked
                     </td>
+                    <td> 
+                        <a href="/Users/DeleteById/@user.Id" class="btn btn-danger" onclick="functionDelete()" >Sil</a> 
+                    </td> 
                 </tr>
             }
+
         </table>
-
-
     </div>
 </div>
 
 <script>
-    function function1() {
-        var isimbox = document.getElementById("textbox1").value;
-        var soyisimbox = document.getElementById("textbox2").value;
+    function functionDelete() {
+        var r = confirm("Bu kullanıcıyı silmek istiyor musunuz?");
+        if (r == true) {
+            alert("Silme işlemi başarılı.")
+        } else {
+            alert("Silme işlemi başarısız.")       
+        }
     }
 </script>
